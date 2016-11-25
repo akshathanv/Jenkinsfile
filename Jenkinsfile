@@ -7,4 +7,7 @@ node {
   def mvnHome = tool 'M3'
   stage 'Build'
   sh "${mvnHome}/bin/mvn compile"
+  
+  stage 'Run SonarQube analysis'
+  sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.host.url=http://16.181.234.223:9000/"
 }
