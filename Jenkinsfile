@@ -9,5 +9,5 @@ node {
   sh "${mvnHome}/bin/mvn compile"
   
   stage 'Run SonarQube analysis'
-  sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.host.url=http://16.181.233.130:9030/"
+  sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.host.url=http://16.181.237.15:9000/"
 }
