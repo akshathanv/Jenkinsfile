@@ -15,7 +15,7 @@ node {
   //stage 'Push Artifact to nexus'
    //sh "${mvnHome}/bin/mvn clean deploy"
   
-    stage 'Artifactory configuration'
+    stage 'art configuration'
         def server = Artifactory.newServer url: 'https://hpedocker.southeastasia.cloudapp.azure.com/artifactory/mavensnapshot', username: 'admin', password: 'password'
         def artifactoryMaven = Artifactory.newMavenBuild()
         artifactoryMaven.tool = M3 // Tool name from Jenkins configuration
