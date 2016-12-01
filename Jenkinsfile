@@ -1,5 +1,4 @@
-import hudson.model.*
-node {
+/*node {
   stage 'Checkout'
   git url: 'https://github.com/akshathanv/Jpetstore_maven.git'   
   // Clean any locally modified files and ensure we are actually on origin/master
@@ -21,7 +20,8 @@ node {
         rtMaven.tool = M3 // Tool name from Jenkins configuration
         rtMaven.deployer snapshotRepo:'mavensnapshot', server: server
         //artifactoryMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
-        def buildInfo = Artifactory.newBuildInfo()
+        //def buildInfo = Artifactory.newBuildInfo()
+        def buildInfo = rtMaven.run pom: 'maven-example/pom.xml', goals: 'clean install'
   
   stage 'Exec Maven'
     buildInfo: buildInfo
@@ -30,4 +30,23 @@ node {
         server.publishBuildInfo buildInfo
 
   
+}*/
+
+node {
+    stage 'Build'
+        git url: 'https://github.com/akshathanv/Jpetstore_maven.git'
+
+    stage 'Artifactory configuration'
+        def server = Artifactory.newServer url: 'https://hpedocker.southeastasia.cloudapp.azure.com/artifactory/mavensnapshot', username: 'admin', password: 'password'
+        def artifactoryMaven = Artifactory.newMavenBuild()
+        artifactoryMaven.tool = M3 // Tool name from Jenkins configuration
+        artifactoryMaven.deployer snapshotRepo:'mavensnapshot', server: server
+        //artifactoryMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
+        def buildInfo = Artifactory.newBuildInfo()
+
+    stage 'Exec Maven'
+        artifactoryMaven.run pom: 'Jpetstore_maven/pom.xml', goals: 'clean install', buildInfo: buildInfo
+
+    stage 'Publish build info'
+        server.publishBuildInfo buildInfo
 }
