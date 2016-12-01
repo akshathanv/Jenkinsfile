@@ -31,7 +31,7 @@
 
   
 }*/
-
+package artifactory
 node {
     stage 'Build'
         git url: 'https://github.com/akshathanv/Jpetstore_maven.git'
