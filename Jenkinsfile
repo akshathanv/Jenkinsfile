@@ -15,11 +15,11 @@ node {
    //sh "${mvnHome}/bin/mvn clean deploy"
   
   stage 'Artifactory configuration'
-        def server = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
+        def server = Artifactory.newServer url: 'https://hpedocker.southeastasia.cloudapp.azure.com/artifactory/mavensnapshot' username: admin password: password
         def artifactoryMaven = Artifactory.newMavenBuild()
-        artifactoryMaven.tool = MAVEN_TOOL // Tool name from Jenkins configuration
-        artifactoryMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
-        artifactoryMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
+        artifactoryMaven.tool = M3 // Tool name from Jenkins configuration
+        artifactoryMaven.deployer snapshotRepo:'mavensnapshot', server: server
+        //artifactoryMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
         def buildInfo = Artifactory.newBuildInfo()
   
   stage 'Exec Maven'
