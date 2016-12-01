@@ -1,3 +1,4 @@
+import hudson.mode.*
 node {
   stage 'Checkout'
   git url: 'https://github.com/akshathanv/Jpetstore_maven.git'   
