@@ -31,7 +31,13 @@
 
   
 }*/
-package artifactory
+import groovy.xml.* 
+import groovy.json.* 
+import jenkins.model.*; 
+import hudson.model.Fingerprint.RangeSet; 
+import hudson.model.Job; 
+import hudson.model.Fingerprint 
+//package artifactory
 node {
     stage 'Build'
         git url: 'https://github.com/akshathanv/Jpetstore_maven.git'
