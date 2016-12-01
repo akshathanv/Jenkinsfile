@@ -11,7 +11,22 @@ node {
   stage 'Run SonarQube analysis'
   sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.host.url=http://16.181.237.15:9000/"
   
-  stage 'Push Artifact to nexus'
-   sh "${mvnHome}/bin/mvn clean deploy"
+  //stage 'Push Artifact to nexus'
+   //sh "${mvnHome}/bin/mvn clean deploy"
+  
+  stage 'Artifactory configuration'
+        def server = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
+        def artifactoryMaven = Artifactory.newMavenBuild()
+        artifactoryMaven.tool = MAVEN_TOOL // Tool name from Jenkins configuration
+        artifactoryMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
+        artifactoryMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
+        def buildInfo = Artifactory.newBuildInfo()
+  
+  stage 'Exec Maven'
+    buildInfo: buildInfo
+  
+  stage 'Publish build info'
+        server.publishBuildInfo buildInfo
+
   
 }
