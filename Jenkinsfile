@@ -43,7 +43,6 @@ node {
         git url: 'https://github.com/akshathanv/Jpetstore_maven.git'
 
     stage 'Artifactory configuration'
-  
         def server = Artifactory.newServer url: 'https://hpedocker.southeastasia.cloudapp.azure.com/artifactory/mavensnapshot', username: 'admin', password: 'password'
         //def server = Artifactory.server SERVER_ID
         def artifactoryMaven = Artifactory.newMavenBuild()
