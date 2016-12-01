@@ -6,7 +6,7 @@ node {
   sh "git clean -f && git reset --hard origin/master"
   def mvnHome = tool 'M3'
   stage 'Build'
-  sh "${mvnHome}/bin/mvn compile"
+  sh "${mvnHome}/bin/mvn clean install"
   
   stage 'Run SonarQube analysis'
   sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.host.url=http://16.181.237.15:9000/"
