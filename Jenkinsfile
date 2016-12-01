@@ -10,4 +10,8 @@ node {
   
   stage 'Run SonarQube analysis'
   sh "${mvnHome}/bin/mvn sonar:sonar -Dsonar.host.url=http://16.181.237.15:9000/"
+  
+  stage 'Push Artifact to nexus'
+   sh "${mvnHome}/bin/mvn clean deploy"
+  
 }
