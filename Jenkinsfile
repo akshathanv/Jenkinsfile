@@ -53,8 +53,8 @@ node {
         def buildInfo = Artifactory.newBuildInfo()
 
     stage 'Exec Maven'
-        artifactoryMaven.run pom: 'Jpetstore_maven/pom.xml', goals: '${mvnHome}/bin/mvn clean install', buildInfo: buildInfo
-
+        artifactoryMaven.run pom: 'Jpetstore_maven/pom.xml', goals: 'clean install', buildInfo: 'buildInfo'
+  
     stage 'Publish build info'
         server.publishBuildInfo buildInfo
 }
